@@ -6,6 +6,7 @@ pipeline {
       description:
         'Select which version'
     )
+    }
     booleanParam(name: 'executeTests', defaultValue: true, description: '')
     tools {
         maven "Maven",
