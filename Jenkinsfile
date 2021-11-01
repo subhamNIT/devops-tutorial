@@ -8,6 +8,11 @@ pipeline {
             }
         }
           stage("test") {
+            when {
+                expression {
+                    BRANCH_NAME === 'main' || BRANCH_NAME === 'master'
+                }
+            }
             steps {
                 echo 'Testing node applicaton'
             }
@@ -16,6 +21,17 @@ pipeline {
             steps {
                 echo 'Deploying node applicaton'
             }
+        }
+    }
+    post {
+        always {
+            echo 'Always Stage'
+        }
+        success {
+            echo 'Success Stage'
+        }
+        failure {
+            echo 'Failure Stage'
         }
     }
 }
