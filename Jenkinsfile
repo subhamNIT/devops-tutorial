@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+    environment {
+        NEW_VERSION = '1.3.0'
+        SERVER_CREDENTIALS = credentials('admin')
+    }
     stages {
         stage("build") {
             steps {
@@ -8,11 +11,11 @@ pipeline {
             }
         }
           stage("test") {
-            when {
-                expression {
-                    BRANCH_NAME == 'main' || BRANCH_NAME == 'master'
-                }
-            }
+            // when {
+            //     expression {
+            //         BRANCH_NAME == 'main' || BRANCH_NAME == 'master'
+            //     }
+            // }
             steps {
                 echo 'Testing node applicaton'
             }
@@ -20,6 +23,8 @@ pipeline {
           stage("deploy") {
             steps {
                 echo 'Deploying node applicaton'
+                echo "deploy with ${SERVER_CREDENTIALS}"
+                sh "${SERVER_CREDENTIALS}"
             }
         }
     }
