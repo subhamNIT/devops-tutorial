@@ -23,8 +23,13 @@ pipeline {
           stage("deploy") {
             steps {
                 echo 'Deploying node applicaton'
-                echo "deploy with ${SERVER_CREDENTIALS}"
-                sh "${SERVER_CREDENTIALS}"
+                // echo "deploy with ${SERVER_CREDENTIALS}"
+                // sh "${SERVER_CREDENTIALS}"
+                withCredentials ([
+                    usernamePassword(credentials: 'admin', usernameVariable: USER, passwordVariable: PWD)
+                ]) {
+                    sh "some script ${USER} ${PWD}"
+                }
             }
         }
     }
