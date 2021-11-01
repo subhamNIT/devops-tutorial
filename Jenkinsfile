@@ -2,15 +2,15 @@ pipeline {
     agent any
     parameters {
     choice(
-      name: 'version', choices: ['QA#', 'test65'],
+      name: 'version', choices: ['1.3.0', '1.2.3'],
       description:
         'Select which version'
     )
     booleanParam(name: 'executeTests', defaultValue: true, description: '')
     }
-    tools {
-        maven "Maven",
-    }
+    // tools {
+    //     maven "Maven"
+    // }
     environment {
         NEW_VERSION = '1.3.0'
         SERVER_CREDENTIALS = credentials('admin')
